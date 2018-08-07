@@ -10,6 +10,7 @@ namespace BikeShop.Controllers
     {
         public ActionResult Index()
         {
+            string hi = "Hello!";
             return View();
         }
 
