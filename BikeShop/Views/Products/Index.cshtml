@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BikeShop.Models.Product>
+
+@{
+    ViewBag.Title = "Bike Products";
+}
+
+<h2>Products</h2>
+@if (!Model.Any())
+{
+    <p>The database is Empty. You should create a new product</p>
+    <p>@Html.ActionLink("Add new Product", "New", "Products", null, new { @class = "btn btn-default btn-block" })</p>
+}
+else
+{
+    <p>@Html.ActionLink("Add new Product", "New", "Products", null, new { @class = "btn btn-default btn-block" })</p>
+
+    <h3>List of Products</h3>
+    using (Html.BeginForm("Index", "Products", FormMethod.Get))
+    {
+        <p>
+            Find Product by Name: @Html.TextBox("searchString")
+            <input type="submit" value="Search for Products" />
+        </p>
+    }
+    <table class="table table-bordered table-hover sortable">
+        <thead>
+            <tr>
+                <th data-defaultsort="asc">Product</th>
+                <th>Category</th>
+                <th data-defaultsort="disabled">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>@product.Category.CategoryName</td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
+                        @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+}
+
+
+

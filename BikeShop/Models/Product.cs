@@ -21,7 +21,7 @@ namespace BikeShop.Models
         public float Price { get; set; }
 
         [Required]
-        public DateTime DateCreation { get; set; }
+        public DateTime? DateCreation { get; set; }
 
         public Category Category { get; set; }
         public int CategoryID { get; set; }

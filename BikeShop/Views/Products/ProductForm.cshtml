@@ -1,0 +1,55 @@
+﻿@model BikeShop.ViewModels.ProductFormViewModel
+@{
+    ViewBag.Title = "ProductForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Product Form</h2>
+@using (Html.BeginForm("Save", "Products"))
+{
+    @Html.ValidationSummary(true, "Please correct the following errors:");
+    <!--@Html.ValidationSummary()-->
+    <div class="form-group">
+        @Html.LabelFor(p => p.Product.ProductName)
+        @Html.TextBoxFor(p => p.Product.ProductName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Product.ProductName)
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Product.Stock)
+        @Html.TextBoxFor(p => p.Product.Stock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Product.Stock)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Product.Price)
+        @Html.TextBoxFor(p => p.Product.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Product.Price)
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Product.DateCreation)
+        @Html.TextBoxFor(p => p.Product.DateCreation, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Product.DateCreation)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Product.CategoryID)
+        @Html.DropDownListFor(p => p.Product.CategoryID,
+       new SelectList(Model.Categories,"CategoryID","CategoryName"),
+       "Select Category",new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Product.CategoryID)
+    </div>
+
+    @Html.HiddenFor(p => p.Product.ProductID)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval");
+
+}
