@@ -33,6 +33,7 @@ namespace BikeShop.Models
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
 
+        [Required]
         [Column(TypeName = "image")]
         public byte[] Image { get; set; }
     }
