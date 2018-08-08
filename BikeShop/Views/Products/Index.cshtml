@@ -22,7 +22,7 @@ else
             <input type="submit" value="Search for Products" />
         </p>
     }
-    <table class="table table-bordered table-hover sortable">
+    @*<table class="table table-bordered table-hover sortable">
         <thead>
             <tr>
                 <th data-defaultsort="asc">Product</th>
@@ -30,32 +30,35 @@ else
                 <th data-defaultsort="disabled">Details</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody>*@
 
-    @foreach (var product in Model)
-    {
+    <hr />
+    <div>
+        @foreach (var product in Model)
+        {
         string imgSrc = null;
 
         if (product.Image != null)
         {
-            var base64 = Convert.ToBase64String(product.Image);
-            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        var base64 = Convert.ToBase64String(product.Image);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
         }
-        <table>
-            <tr>
-                <td><img src="@imgSrc" /></td>
-            </tr>
-            <tr>  <td>@product.ProductName</td></tr>
-            <tr> <td>@product.Category.CategoryName</td></tr>
+
+        <div style="width: 40%; float: left" class="thumb">
+            <img src="@imgSrc" />
+            @product.ProductName
+            @product.Category.CategoryName
 
             @*<td>
-                    @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
-                    @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
-                    @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
-                </td>*@
+                @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
+                @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
+                @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
+            </td>*@
 
-        </table>
-    }
+        </div>
+        }
+
+    </div>
     @*</tbody>
         </table>*@
 
