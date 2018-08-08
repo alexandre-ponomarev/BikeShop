@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BikeShop.Models.Product>
 
 @{
-    ViewBag.Title = "Bike Products";
+    ViewBag.Title = "Bikes";
 }
 
 <h2>All our bikes</h2>
@@ -17,10 +17,11 @@ else
 {
     <p>@Html.ActionLink("Add new Product", "New", "Products", null, new { @class = "btn btn-default btn-block" })</p>
 
-    <h3>List of Products</h3>
+    <br>
+
     using (Html.BeginForm("Index", "Products", FormMethod.Get))
     {
-        <p>
+        <p style="text-align: right">
             Find Product by Name: @Html.TextBox("searchString")
             <input type="submit" value="Search for Products" />
         </p>
