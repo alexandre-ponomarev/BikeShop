@@ -1,10 +1,12 @@
-﻿@model BikeShop.ViewModels.ProductFormViewModel
+﻿
+@model BikeShop.ViewModels.ProductFormViewModel
+
 @{
     ViewBag.Title = "ProductForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Product Form</h2>
+<h2>@Model.Option Product</h2>
 @using (Html.BeginForm("Save", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true, "Please correct the following errors:");
@@ -44,6 +46,8 @@
     </div>
 
     <input name="ImageFile" type="file" />
+
+    <br />
 
     @Html.HiddenFor(p => p.Product.ProductID)
     @Html.AntiForgeryToken()

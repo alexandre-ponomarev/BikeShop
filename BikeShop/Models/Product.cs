@@ -13,10 +13,11 @@ namespace BikeShop.Models
 
         [Required(ErrorMessage = "Please enter the product's name")]
         [StringLength(100)]
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; }
 
         [Required]
-        [Display(Name = "Stock by Sale")]
+        [Display(Name = "Stock")]
         public int Stock { get; set; }
 
         [Required]

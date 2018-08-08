@@ -39,7 +39,8 @@ namespace BikeShop.Controllers
             var viewModel = new ProductFormViewModel
             {
                 Product = new Product(),
-                Categories = _context.Categories.ToList()
+                Categories = _context.Categories.ToList(),
+                Option = "New"
             };
             return View("ProductForm", viewModel);
         }
@@ -64,7 +65,8 @@ namespace BikeShop.Controllers
                 var viewModel = new ProductFormViewModel
                 {
                     Product = product,
-                    Categories = _context.Categories.ToList()
+                    Categories = _context.Categories.ToList(),
+                    Option = "New"
                 };
                 return View("ProductForm", viewModel);
             }
@@ -120,7 +122,8 @@ namespace BikeShop.Controllers
             var viewModel = new ProductFormViewModel()
             {
                 Product = productInDB,
-                Categories = _context.Categories.ToList()
+                Categories = _context.Categories.ToList(),
+                Option = "Edit"
             };
 
             return View("ProductForm", viewModel);
