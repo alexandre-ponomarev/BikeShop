@@ -32,7 +32,8 @@ textarea {
 
 .thumb {
     width: 31%;
-    float: left;
+    /*float: left;*/
+    display: inline-block;
     border: 1px solid;
     margin: 10px;
     border-radius: 10px;

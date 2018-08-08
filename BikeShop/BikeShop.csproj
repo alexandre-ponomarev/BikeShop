@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201808081342466_DropCustomersTable.Designer.cs">
       <DependentUpon>201808081342466_DropCustomersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808081551095_DateOfCreationRemovedFromProducts.cs" />
+    <Compile Include="Migrations\201808081551095_DateOfCreationRemovedFromProducts.Designer.cs">
+      <DependentUpon>201808081551095_DateOfCreationRemovedFromProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -326,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808081342466_DropCustomersTable.resx">
       <DependentUpon>201808081342466_DropCustomersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808081551095_DateOfCreationRemovedFromProducts.resx">
+      <DependentUpon>201808081551095_DateOfCreationRemovedFromProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

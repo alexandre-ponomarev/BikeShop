@@ -24,7 +24,6 @@ namespace BikeShop.Models
         [Display(Name = "Price of Product")]
         public float Price { get; set; }
 
-        [Required]
         [Display(Name = "Date of Creation")]
         public DateTime? DateCreation { get; set; }
 
