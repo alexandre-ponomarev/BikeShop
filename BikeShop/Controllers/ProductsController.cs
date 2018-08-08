@@ -102,7 +102,46 @@ namespace BikeShop.Controllers
         }
 
 
+        //Edit product details
+        public ActionResult Edit(int id)
+        {
+            var productInDB = _context.Products.SingleOrDefault(p => p.ProductID == id);
 
+            if (productInDB == null)
+                return HttpNotFound();
+
+            var viewModel = new ProductFormViewModel()
+            {
+                Product = productInDB,
+                Categories = _context.Categories.ToList()
+            };
+
+            return View("ProductForm", viewModel);
+        }
+
+
+        //This action will display a confirm message to the user to confirm the delete operation
+        public ActionResult Delete(int? id)
+        {
+            if (!id.HasValue)
+                return HttpNotFound();
+
+            var product = _context.Products.Include(c => c.Category).SingleOrDefault(p => p.ProductID == id);
+
+            if (product == null)
+                return HttpNotFound();
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var product = _context.Products.Find(id);
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Products");
+        }
 
 
     }

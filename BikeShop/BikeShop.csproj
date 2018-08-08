@@ -283,6 +283,7 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\ProductForm.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
