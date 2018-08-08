@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201808071928141_populateCategories.Designer.cs">
       <DependentUpon>201808071928141_populateCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808080156001_addPictureToProduct.cs" />
+    <Compile Include="Migrations\201808080156001_addPictureToProduct.Designer.cs">
+      <DependentUpon>201808080156001_addPictureToProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -257,8 +261,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -307,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808071928141_populateCategories.resx">
       <DependentUpon>201808071928141_populateCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808080156001_addPictureToProduct.resx">
+      <DependentUpon>201808080156001_addPictureToProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

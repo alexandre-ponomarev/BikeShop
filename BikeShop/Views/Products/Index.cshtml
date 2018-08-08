@@ -31,21 +31,33 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model)
-            {
-                <tr>
-                    <td>@product.ProductName</td>
-                    <td>@product.Category.CategoryName</td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
-                        @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
-                        @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
-                    </td>
-                </tr>
 
-            }
-        </tbody>
-    </table>
+    @foreach (var product in Model)
+    {
+        string imgSrc = null;
+
+        if (product.Image != null)
+        {
+            var base64 = Convert.ToBase64String(product.Image);
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+        <table>
+            <tr>
+                <td><img src="@imgSrc" /></td>
+            </tr>
+            <tr>  <td>@product.ProductName</td></tr>
+            <tr> <td>@product.Category.CategoryName</td></tr>
+
+            @*<td>
+                    @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
+                    @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
+                </td>*@
+
+        </table>
+    }
+    @*</tbody>
+        </table>*@
 
 }
 

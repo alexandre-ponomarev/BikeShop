@@ -5,7 +5,7 @@
 }
 
 <h2>Product Form</h2>
-@using (Html.BeginForm("Save", "Products"))
+@using (Html.BeginForm("Save", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true, "Please correct the following errors:");
     <!--@Html.ValidationSummary()-->
@@ -42,6 +42,8 @@
        "Select Category",new { @class = "form-control" })
         @Html.ValidationMessageFor(p => p.Product.CategoryID)
     </div>
+
+    <input name="ImageFile" type="file" />
 
     @Html.HiddenFor(p => p.Product.ProductID)
     @Html.AntiForgeryToken()

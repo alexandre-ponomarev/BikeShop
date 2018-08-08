@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using BikeShop.Models;
 using BikeShop.ViewModels;
+using System.IO;
 
 namespace BikeShop.Controllers
 {
@@ -48,8 +49,14 @@ namespace BikeShop.Controllers
         //Post action to save data from my form (2)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Product product)
+        public ActionResult Save(Product product, HttpPostedFileBase ImageFile)
         {
+            using (var ms = new MemoryStream())
+            {
+                ImageFile.InputStream.CopyTo(ms);
+                product.Image = ms.ToArray();
+            }
+
             //Check if the form is valid
             if (!ModelState.IsValid)
             {

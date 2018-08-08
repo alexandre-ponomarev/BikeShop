@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -31,5 +32,7 @@ namespace BikeShop.Models
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
 
+        [Column(TypeName = "image")]
+        public byte[] Image { get; set; }
     }
 }
