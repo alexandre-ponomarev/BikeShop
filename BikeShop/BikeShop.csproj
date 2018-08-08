@@ -217,6 +217,10 @@
     <Compile Include="Migrations\201808081327124_populateCategories_Version_02.Designer.cs">
       <DependentUpon>201808081327124_populateCategories_Version_02.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808081342466_DropCustomersTable.cs" />
+    <Compile Include="Migrations\201808081342466_DropCustomersTable.Designer.cs">
+      <DependentUpon>201808081342466_DropCustomersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -319,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808081327124_populateCategories_Version_02.resx">
       <DependentUpon>201808081327124_populateCategories_Version_02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808081342466_DropCustomersTable.resx">
+      <DependentUpon>201808081342466_DropCustomersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

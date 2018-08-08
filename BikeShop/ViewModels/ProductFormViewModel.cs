@@ -10,5 +10,6 @@ namespace BikeShop.ViewModels
     {
         public Product Product { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+        public string Option { get; set; }
     }
 }
