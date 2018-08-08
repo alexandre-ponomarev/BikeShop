@@ -4,7 +4,10 @@
     ViewBag.Title = "Bike Products";
 }
 
-<h2>Products</h2>
+<h2>All our bikes</h2>
+
+<br />
+
 @if (!Model.Any())
 {
     <p>The database is Empty. You should create a new product</p>
@@ -33,7 +36,7 @@ else
         <tbody>*@
 
     <hr />
-    <div>
+    <div class="clearfix">
         @foreach (var product in Model)
         {
         string imgSrc = null;
@@ -44,16 +47,17 @@ else
         imgSrc = String.Format("data:image/gif;base64,{0}", base64);
         }
 
-        <div style="width: 40%; float: left" class="thumb">
-            <img src="@imgSrc" />
-            @product.ProductName
-            @product.Category.CategoryName
+        <div class="thumb">
+            <a href="@Url.Action("Details", "Products", new { id = product.ProductID })"><img src="@imgSrc" /></a><br>
+            <span class="title">@product.ProductName</span><br>
+            @product.Price.ToString("c")<br>
+            @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) | @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
 
             @*<td>
-                @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
-                @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
-                @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
-            </td>*@
+            @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
+            @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
+            @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
+        </td>*@
 
         </div>
         }

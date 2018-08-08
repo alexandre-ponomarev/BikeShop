@@ -4,9 +4,19 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string imgSrc = null;
+
+    if (Model.Image != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Image);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
 }
-<h2>@Model.ProductName</h2>
-<table class="table table-bordered table-hover">
+<center><h2>@Model.ProductName</h2>
+        <img src="@imgSrc" class="description-img"/>
+    </center>
+<table class="table table-bordered table-hover description-product">
     <tr>
         <td>Category:</td>
         <td>@Model.Category.CategoryName</td>
@@ -19,16 +29,9 @@
     </tr>
     <tr>
         <td>Price:</td>
-        <td>@Model.Price</td>
+        <td>@Model.Price.ToString("c")</td>
 
     </tr>
-    @if (Model.DateCreation.HasValue)
-    {
-        <tr>
-            <td>Birthdate:</td>
-            <td>@Model.DateCreation.Value.ToShortDateString()</td>
 
-        </tr>
-    }
 
 </table>
