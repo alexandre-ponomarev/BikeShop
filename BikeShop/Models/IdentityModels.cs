@@ -25,6 +25,8 @@ namespace BikeShop.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceType> ServiceTypes { get; set; }
 
 
         public ApplicationDbContext()

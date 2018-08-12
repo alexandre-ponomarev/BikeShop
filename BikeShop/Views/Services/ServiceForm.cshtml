@@ -1,0 +1,58 @@
+﻿
+@model BikeShop.ViewModels.ServiceFormViewModel
+
+@{
+    ViewBag.Title = "ServiceForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Option Service</h2>
+@using (Html.BeginForm("Save", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Please correct the following errors:");
+    <!--@Html.ValidationSummary()-->
+    <div class="form-group">
+        @Html.LabelFor(p => p.Service.ServiceName)
+        @Html.TextBoxFor(p => p.Service.ServiceName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Service.ServiceName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Service.ServiceDetail)
+        @Html.TextBoxFor(p => p.Service.ServiceDetail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Service.ServiceDetail)
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Service.Price)
+        @Html.TextBoxFor(p => p.Service.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Service.Price)
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Service.ServiceTypeID)
+        @Html.DropDownListFor(p => p.Service.ServiceTypeID,
+                 new SelectList(Model.ServiceTypes, "ServiceTypeID", "ServiceTypeName"),
+                 "Select Service Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Service.ServiceTypeID)
+    </div>
+
+    <input name="ImageFile" type="file" />
+
+    <br />
+
+    @Html.HiddenFor(p => p.Service.ServiceID)
+    @Html.AntiForgeryToken()
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval");
+
+}

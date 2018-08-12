@@ -1,0 +1,38 @@
+﻿
+@model BikeShop.Models.Service
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string imgSrc = null;
+
+    if (Model.Image != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Image);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+}
+<center>
+    <h2>@Model.ServiceName</h2>
+    <img src="@imgSrc" class="description-img" />
+</center>
+<table class="table table-bordered table-hover description-product">
+    <tr>
+        <td>Service Type:</td>
+        <td>@Model.ServiceType.ServiceTypeName</td>
+
+    </tr>
+    <tr>
+        <td>Details:</td>
+        <td>@Model.ServiceDetail</td>
+
+    </tr>
+    <tr>
+        <td>Price:</td>
+        <td>@Model.Price.ToString("c")</td>
+
+    </tr>
+
+
+</table>

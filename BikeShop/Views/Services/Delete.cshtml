@@ -1,0 +1,36 @@
+﻿
+@model BikeShop.Models.Service
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>Delete Service Record</h3>
+<h4>Are you sure you want to delete this Service Record?</h4>
+<div>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.ServiceName):</td>
+            <td>@Html.DisplayFor(p => p.ServiceName)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.ServiceDetail):</td>
+            <td>@Html.DisplayFor(p => p.ServiceDetail)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.Price):</td>
+            <td>@Html.DisplayFor(p => p.Price)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.ServiceTypeID):</td>
+            <td>@Html.DisplayFor(c => c.ServiceType.ServiceTypeName)</td>
+        </tr>
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("Back to service's list", "Index", "Services", null, new { @class = "btn btn-primary" })
+    </div>
+}
