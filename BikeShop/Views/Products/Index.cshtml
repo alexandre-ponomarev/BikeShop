@@ -52,7 +52,10 @@ else
             <a href="@Url.Action("Details", "Products", new { id = product.ProductID })"><img src="@imgSrc" /></a><br>
             <span class="title">@product.ProductName</span><br>
             @product.Price.ToString("c")<br>
-            @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) | @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
+
+            @Html.ActionLink("Add to Cart", "AddTo", "Cart", new { id = product.ProductID }, null) |
+            @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
+            @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
 
             @*<td>
             @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |

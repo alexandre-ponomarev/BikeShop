@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BikeShop.Models;
+using System.Collections.Generic;
 
 namespace BikeShop.Controllers
 {
@@ -392,6 +393,9 @@ namespace BikeShop.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            CartController.addedToCart = new List<Product>();
+
             return RedirectToAction("Index", "Home");
         }
 

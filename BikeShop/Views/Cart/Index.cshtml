@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BikeShop.Models.Product>
+
+
+@{
+    ViewBag.Title = "Bikes";
+}
+
+<h2>Shopping cart</h2>
+
+<br />
+
+@if (!Model.Any())
+{
+    <p>You haven't added anything to your shopping cart!</p>
+
+}
+else
+{
+    <script>
+        function proceed() {
+            alert('Your order has been placed! Thank You!');
+           
+        }
+    </script>
+
+    <a href="~/Cart/Flush" onclick="proceed()" class="btn btn-default btn-block">Checkout</a>
+
+    <hr />
+
+    <div class="clearfix">
+        @foreach (var product in Model)
+        {
+            string imgSrc = null;
+
+            if (product.Image != null)
+            {
+                var base64 = Convert.ToBase64String(product.Image);
+                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+
+            <div class="thumb">
+                <a href="@Url.Action("Details", "Products", new { id = product.ProductID })"><img src="@imgSrc" /></a><br>
+                <span class="title">@product.ProductName</span><br>
+                @product.Price.ToString("c")<br>
+
+                @Html.ActionLink("Remove", "Remove", "Cart", new { id = product.ProductID }, null)
+
+
+
+            </div>
+        }
+
+    </div>
+
+}
+
+
+

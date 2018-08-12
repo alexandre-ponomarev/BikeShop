@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using BikeShop.Models;
+@using BikeShop.Controllers;
 @{
     Layout = null;
 }
@@ -119,18 +121,15 @@
         <div class="collapse navbar-collapse" id="basicExampleNav">
             <!-- Links -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link waves-effect waves-light" href="#">
-                        Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link waves-effect waves-light" href="~/Products/">Bikes</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="~/Service/">Service</a>
+                </li>
                 @*<li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#">Accesories</a>
-                </li>*@
+                        <a class="nav-link waves-effect waves-light" href="#">Accesories</a>
+                    </li>*@
                 <!-- Dropdown -->
                 @*<li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Management</a>
@@ -142,15 +141,39 @@
             </ul>
             <!-- Links -->
             <div class="md-form my-0">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="~/Account/Register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="~/Account/Login">Login</a>
-                    </li>
-                </ul>
+                @*<ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect waves-light" href="~/Account/Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect waves-light" href="~/Account/Login">Login</a>
+                        </li>
+                    </ul>*@
+
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link waves-effect waves-light" })
+                            </li>
+                            <li class="nav-item"><a class="nav-link waves-effect waves-light" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        </ul>
+                    }
+                }
+                else
+                {
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link waves-effect waves-light" })</li>
+                        <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link waves-effect waves-light" })</li>
+                    </ul>
+                }
             </div>
+
         </div>
         <!-- Collapsible content -->
     </nav>
@@ -172,16 +195,16 @@
                 <div class="view">
                     <div class="full-bg-img flex-center mask rgba-indigo-light white-text">
                         @*<ul class="animated fadeInUp col-md-12 list-unstyled list-inline">
-                            <li>
-                                <h1 class="font-weight-bold text-uppercase">Welcome to our bike shop!</h1>
-                            </li>
-                            <li>
-                                <p class="font-weight-bold text-uppercase py-4">The most comprehensive bike shop ever</p>
-                            </li>
-                            <li class="list-inline-item">
-                                <a target="_blank" href="#" class="btn btn-unique btn-lg btn-rounded mr-0 waves-effect waves-light">Go shop!</a>
-                            </li>
-                        </ul>*@
+                                <li>
+                                    <h1 class="font-weight-bold text-uppercase">Welcome to our bike shop!</h1>
+                                </li>
+                                <li>
+                                    <p class="font-weight-bold text-uppercase py-4">The most comprehensive bike shop ever</p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a target="_blank" href="#" class="btn btn-unique btn-lg btn-rounded mr-0 waves-effect waves-light">Go shop!</a>
+                                </li>
+                            </ul>*@
                     </div>
                 </div>
                 <!--/.Mask-->
@@ -193,16 +216,16 @@
                 <div class="view">
                     <div class="full-bg-img flex-center mask rgba-purple-light white-text">
                         @*<ul class="animated fadeInUp col-md-12 list-unstyled">
-                            <li>
-                                <h1 class="font-weight-bold text-uppercase">Go check our bikes!</h1>
-                            </li>
-                            <li>
-                                <p class="font-weight-bold text-uppercase py-4">The collection 2018/2019 is already available</p>
-                            </li>
-                            <li>
-                                <a target="_blank" href="#" class="btn btn-primary btn-rounded btn-lg waves-effect waves-light">Bikes</a>
-                            </li>
-                        </ul>*@
+                                <li>
+                                    <h1 class="font-weight-bold text-uppercase">Go check our bikes!</h1>
+                                </li>
+                                <li>
+                                    <p class="font-weight-bold text-uppercase py-4">The collection 2018/2019 is already available</p>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="#" class="btn btn-primary btn-rounded btn-lg waves-effect waves-light">Bikes</a>
+                                </li>
+                            </ul>*@
                     </div>
                 </div>
                 <!--/.Mask-->
@@ -214,16 +237,16 @@
                 <div class="view">
                     <div class="full-bg-img flex-center mask rgba-blue-light white-text">
                         @*<ul class="animated fadeInUp col-md-12 list-unstyled">
-                            <li>
-                                <h1 class="font-weight-bold text-uppercase">Accessories</h1>
-                            </li>
-                            <li>
-                                <p class="font-weight-bold text-uppercase py-4">Go check our newest arrivals</p>
-                            </li>
-                            <li>
-                                <a target="_blank" href="#" class="btn btn-lg btn-indigo btn-rounded waves-effect waves-light">Accessories</a>
-                            </li>
-                        </ul>*@
+                                <li>
+                                    <h1 class="font-weight-bold text-uppercase">Accessories</h1>
+                                </li>
+                                <li>
+                                    <p class="font-weight-bold text-uppercase py-4">Go check our newest arrivals</p>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="#" class="btn btn-lg btn-indigo btn-rounded waves-effect waves-light">Accessories</a>
+                                </li>
+                            </ul>*@
                     </div>
                 </div>
                 <!--/.Mask-->
