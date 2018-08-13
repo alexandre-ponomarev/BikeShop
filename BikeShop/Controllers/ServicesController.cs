@@ -39,6 +39,7 @@ namespace BikeShop.Controllers
 
 
         //Add a New Product
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult New()
         {
             var viewModel = new ServiceFormViewModel
@@ -55,13 +56,10 @@ namespace BikeShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Service service, HttpPostedFileBase ImageFile)
+        [Authorize(Roles = RoleNames.Admin)]
+        public ActionResult Save(Service service)
         {
-            using (var ms = new MemoryStream())
-            {
-                ImageFile.InputStream.CopyTo(ms);
-                service.Image = ms.ToArray();
-            }
+            
 
             //Check if the form is valid
             if (!ModelState.IsValid)
@@ -75,6 +73,13 @@ namespace BikeShop.Controllers
                 };
                 return View("ServiceForm", viewModel);
             }
+
+            using (var ms = new MemoryStream())
+            {
+                service.File.InputStream.CopyTo(ms);
+                service.Image = ms.ToArray();
+            }
+
             //new service
             if (service.ServiceID == 0)
             {
@@ -87,8 +92,9 @@ namespace BikeShop.Controllers
                 //Manual update
                 serviceInDB.ServiceName = service.ServiceName;
                 serviceInDB.ServiceDetail = service.ServiceDetail;
-                serviceInDB.Price = service.Price;
                 serviceInDB.ServiceTypeID = service.ServiceTypeID;
+                serviceInDB.Image = service.Image;
+                serviceInDB.File = service.File;
             }
 
             _context.SaveChanges();
@@ -118,8 +124,12 @@ namespace BikeShop.Controllers
 
 
         //Edit services details
-        public ActionResult Edit(int id)
+        [Authorize(Roles = RoleNames.Admin)]
+        public ActionResult Edit(int? id)
         {
+            if (!id.HasValue)
+                return HttpNotFound();
+
             var serviceInDB = _context.Services.SingleOrDefault(p => p.ServiceID == id);
 
             if (serviceInDB == null)
@@ -139,6 +149,7 @@ namespace BikeShop.Controllers
 
 
         //This action will display a confirm message to the user to confirm the delete operation
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult Delete(int? id)
         {
             if (!id.HasValue)
@@ -153,6 +164,7 @@ namespace BikeShop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult Delete(int id)
         {
             var service = _context.Services.Find(id);
@@ -162,7 +174,52 @@ namespace BikeShop.Controllers
             return RedirectToAction("Index", "Services");
         }
 
+        public ActionResult BookService(int? id)
+        {
+            if (!id.HasValue)
+                return HttpNotFound();
+
+            var viewModel = new BookServiceViewModel()
+            {
+                Service = _context.Services.SingleOrDefault(s => s.ServiceID == id),
+                ServiceRequest = new ServiceRequest {
+                    ServiceId = (int)id
+                }
+            };
+
+            if (viewModel.Service == null)
+                return HttpNotFound();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveRequest(ServiceRequest serviceRequest)
+        {
+
+            var viewModel = new BookServiceViewModel()
+            {
+                Service = _context.Services.First(s => s.ServiceID == serviceRequest.ServiceId),
+                ServiceRequest = serviceRequest
+            };
+
+            //Check if the form is valid
+            if (!ModelState.IsValid)
+            {
+                return View("BookService", viewModel);
+            }
+
+            //new service
+            if (serviceRequest.Id == 0)
+            {
+                _context.ServiceRequests.Add(serviceRequest);
+            }
 
 
+            _context.SaveChanges();
+
+            return View("Confirmation", viewModel);
+        }
     }
 }

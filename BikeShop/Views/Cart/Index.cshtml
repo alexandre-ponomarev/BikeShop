@@ -19,7 +19,7 @@ else
     <script>
         function proceed() {
             alert('Your order has been placed! Thank You!');
-           
+
         }
     </script>
 
@@ -41,7 +41,7 @@ else
             <div class="thumb">
                 <a href="@Url.Action("Details", "Products", new { id = product.ProductID })"><img src="@imgSrc" /></a><br>
                 <span class="title">@product.ProductName</span><br>
-                @product.Price.ToString("c")<br>
+                @(product.Price.HasValue ? product.Price.Value.ToString("c") : string.Empty) <br>
 
                 @Html.ActionLink("Remove", "Remove", "Cart", new { id = product.ProductID }, null)
 

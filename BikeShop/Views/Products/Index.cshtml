@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<BikeShop.Models.Product>
+@using BikeShop.Models
 
 @{
     ViewBag.Title = "Bikes";
@@ -11,13 +12,21 @@
 @if (!Model.Any())
 {
     <p>The database is Empty. You should create a new product</p>
-    <p>@Html.ActionLink("Add new Product", "New", "Products", null, new { @class = "btn btn-default btn-block" })</p>
+
+    if (User.IsInRole(RoleNames.Admin))
+    {
+        <p>@Html.ActionLink("Add new Product", "New", "Products", null, new { @class = "btn btn-default btn-block" })</p>
+    }
 }
 else
 {
-    <p>@Html.ActionLink("Add new Product", "New", "Products", null, new { @class = "btn btn-default btn-block" })</p>
+    if (User.IsInRole(RoleNames.Admin))
+    {
+        <p>@Html.ActionLink("Add new Product", "New", "Products", null, new { @class = "btn btn-default btn-block" })</p>
+        
+        <br>
+    }
 
-    <br>
 
     using (Html.BeginForm("Index", "Products", FormMethod.Get))
     {
@@ -40,30 +49,37 @@ else
     <div class="clearfix">
         @foreach (var product in Model)
         {
-        string imgSrc = null;
+            string imgSrc = null;
 
-        if (product.Image != null)
-        {
-        var base64 = Convert.ToBase64String(product.Image);
-        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-        }
+            if (product.Image != null)
+            {
+                var base64 = Convert.ToBase64String(product.Image);
+                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
 
-        <div class="thumb">
-            <a href="@Url.Action("Details", "Products", new { id = product.ProductID })"><img src="@imgSrc" /></a><br>
-            <span class="title">@product.ProductName</span><br>
-            @product.Price.ToString("c")<br>
+            <div class="thumb">
+                <a href="@Url.Action("Details", "Products", new { id = product.ProductID })"><img src="@imgSrc" /></a><br>
+                <span class="title">@product.ProductName</span><br>
 
-            @Html.ActionLink("Add to Cart", "AddTo", "Cart", new { id = product.ProductID }, null) |
-            @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
-            @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
+                @(product.Price.HasValue ? product.Price.Value.ToString("c") : string.Empty) <br>
 
-            @*<td>
-            @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
-            @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
-            @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
-        </td>*@
+                @Html.ActionLink("Add to Cart", "AddTo", "Cart", new { id = product.ProductID }, null)
 
-        </div>
+                @if (User.IsInRole(RoleNames.Admin))
+                {
+                    <span>|</span>
+                    @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null);
+                    <span>|</span>
+                    @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null);
+                }
+
+                @*<td>
+                        @Html.ActionLink("Details", "Details", "Products", new { id = product.ProductID }, null) |
+                        @Html.ActionLink("Edit", "Edit", "Products", new { id = product.ProductID }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Products", new { id = product.ProductID }, null)
+                    </td>*@
+
+            </div>
         }
 
     </div>

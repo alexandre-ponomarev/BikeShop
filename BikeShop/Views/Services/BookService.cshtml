@@ -1,0 +1,57 @@
+﻿
+@model BikeShop.ViewModels.BookServiceViewModel
+
+@{
+    ViewBag.Title = "Book Service";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Service booking</h2>
+
+<br />
+
+@using (Html.BeginForm("SaveRequest", "Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Please correct the following errors:", new { @class = "text-danger" });
+
+    <div class="form-group">
+        @Html.LabelFor(sr => sr.ServiceRequest.Name)
+        @Html.TextBoxFor(sr => sr.ServiceRequest.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(sr => sr.ServiceRequest.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(sr => sr.ServiceRequest.Email)
+        @Html.TextBoxFor(sr => sr.ServiceRequest.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(sr => sr.ServiceRequest.Email, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(sr => sr.ServiceRequest.AppointmentDate)
+        @Html.TextBoxFor(sr => sr.ServiceRequest.AppointmentDate, new { @class = "form-control", type = "datetime-local" })
+        @Html.ValidationMessageFor(sr => sr.ServiceRequest.AppointmentDate, "", new { @class = "text-danger" })
+    </div>
+
+    <p><b>Service selected: </b></p>
+
+    <div class="form-group">
+       <u>Title:</u> @Html.DisplayFor(s => s.Service.ServiceName)
+        <br>
+       <u>Description:</u> @Html.DisplayFor(s => s.Service.ServiceDetail)
+        
+    </div>
+
+    @Html.HiddenFor(sr => sr.ServiceRequest.ServiceId)
+    @Html.AntiForgeryToken()
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+@*@section scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval");
+
+    }*@

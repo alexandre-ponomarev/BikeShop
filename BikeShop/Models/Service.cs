@@ -18,20 +18,20 @@ namespace BikeShop.Models
 
         [Required(ErrorMessage = "Please enter the service's detail")]
         [StringLength(500)]
-        [Display(Name = "Service detail")]
+        [Display(Name = "Service Description")]
         public string ServiceDetail { get; set; }
-
-        [Required]
-        [Display(Name = "Price of Service")]
-        public float Price { get; set; }
-
-        [Column(TypeName = "image")]
-        public byte[] Image { get; set; }
 
         public ServiceType ServiceType { get; set; }
 
         [Display(Name = "ServiceType")]
         public int ServiceTypeID { get; set; }
+
+        [NotMapped]
+        [Required(ErrorMessage = "The picture for the service is required"), FileExtensions("jpg,jpeg,png,gif", ErrorMessage = "Please upload image files")]
+        public HttpPostedFileBase File { get; set; }
+
+        [Column(TypeName = "image")]
+        public byte[] Image { get; set; }
 
     }
 }

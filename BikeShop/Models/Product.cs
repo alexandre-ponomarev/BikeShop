@@ -18,19 +18,21 @@ namespace BikeShop.Models
 
         [Required]
         [Display(Name = "Stock")]
-        public int Stock { get; set; }
+        public int? Stock { get; set; }
 
         [Required]
         [Display(Name = "Price of Product")]
-        public float Price { get; set; }
-
-        [Display(Name = "Date of Creation")]
-        public DateTime? DateCreation { get; set; }
+        public float? Price { get; set; }
 
         public Category Category { get; set; }
 
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
+
+        
+        [NotMapped]
+        [Required(ErrorMessage = "The picture for the product is required"), FileExtensions("jpg,jpeg,png,gif", ErrorMessage = "Please upload image files")]
+        public HttpPostedFileBase File { get; set; }
 
         [Column(TypeName = "image")]
         public byte[] Image { get; set; }

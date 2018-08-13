@@ -34,6 +34,7 @@ namespace BikeShop.Controllers
         }
 
         //Add a New Product
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult New()
         {
             var viewModel = new ProductFormViewModel
@@ -50,13 +51,10 @@ namespace BikeShop.Controllers
         //Post action to save data from my form (2)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Product product, HttpPostedFileBase ImageFile)
+        [Authorize(Roles = RoleNames.Admin)]
+        public ActionResult Save(Product product)
         {
-            using (var ms = new MemoryStream())
-            {
-                ImageFile.InputStream.CopyTo(ms);
-                product.Image = ms.ToArray();
-            }
+
 
             //Check if the form is valid
             if (!ModelState.IsValid)
@@ -70,6 +68,13 @@ namespace BikeShop.Controllers
                 };
                 return View("ProductForm", viewModel);
             }
+
+            using (var ms = new MemoryStream())
+            {
+                product.File.InputStream.CopyTo(ms);
+                product.Image = ms.ToArray();
+            }
+
             //new product
             if (product.ProductID == 0)
             {
@@ -83,8 +88,9 @@ namespace BikeShop.Controllers
                 productInDB.ProductName = product.ProductName;
                 productInDB.Stock = product.Stock;
                 productInDB.Price = product.Price;
-                productInDB.DateCreation = product.DateCreation;
                 productInDB.CategoryID = product.CategoryID;
+                productInDB.Image = product.Image;
+                productInDB.File = product.File;
             }
 
             _context.SaveChanges();
@@ -112,8 +118,12 @@ namespace BikeShop.Controllers
 
 
         //Edit product details
-        public ActionResult Edit(int id)
+        [Authorize(Roles = RoleNames.Admin)]
+        public ActionResult Edit(int? id)
         {
+            if (!id.HasValue)
+                return HttpNotFound();
+
             var productInDB = _context.Products.SingleOrDefault(p => p.ProductID == id);
 
             if (productInDB == null)
@@ -131,6 +141,7 @@ namespace BikeShop.Controllers
 
 
         //This action will display a confirm message to the user to confirm the delete operation
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult Delete(int? id)
         {
             if (!id.HasValue)
@@ -145,6 +156,7 @@ namespace BikeShop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult Delete(int id)
         {
             var product = _context.Products.Find(id);

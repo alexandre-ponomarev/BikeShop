@@ -235,17 +235,40 @@
     <Compile Include="Migrations\201808120702595_populateServiceType.Designer.cs">
       <DependentUpon>201808120702595_populateServiceType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808121636554_AddServiceRequestModel.cs" />
+    <Compile Include="Migrations\201808121636554_AddServiceRequestModel.Designer.cs">
+      <DependentUpon>201808121636554_AddServiceRequestModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808122038493_removeDateOfCreationFromProduct.cs" />
+    <Compile Include="Migrations\201808122038493_removeDateOfCreationFromProduct.Designer.cs">
+      <DependentUpon>201808122038493_removeDateOfCreationFromProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808122130291_dropPriceFromService.cs" />
+    <Compile Include="Migrations\201808122130291_dropPriceFromService.Designer.cs">
+      <DependentUpon>201808122130291_dropPriceFromService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808122229260_AddDefaultUserAccounts.cs" />
+    <Compile Include="Migrations\201808122229260_AddDefaultUserAccounts.Designer.cs">
+      <DependentUpon>201808122229260_AddDefaultUserAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808122337507_DropCustomerTable.cs" />
+    <Compile Include="Migrations\201808122337507_DropCustomerTable.Designer.cs">
+      <DependentUpon>201808122337507_DropCustomerTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\FileExtensionsAttribute.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\ServiceRequest.cs" />
     <Compile Include="Models\ServiceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BookServiceViewModel.cs" />
     <Compile Include="ViewModels\ProductFormViewModel.cs" />
     <Compile Include="ViewModels\ServiceFormViewModel.cs" />
   </ItemGroup>
@@ -316,6 +339,8 @@
     <Content Include="Views\Services\Delete.cshtml" />
     <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\ServiceForm.cshtml" />
+    <Content Include="Views\Services\BookService.cshtml" />
+    <Content Include="Views\Services\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -357,6 +382,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808120702595_populateServiceType.resx">
       <DependentUpon>201808120702595_populateServiceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808121636554_AddServiceRequestModel.resx">
+      <DependentUpon>201808121636554_AddServiceRequestModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808122038493_removeDateOfCreationFromProduct.resx">
+      <DependentUpon>201808122038493_removeDateOfCreationFromProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808122130291_dropPriceFromService.resx">
+      <DependentUpon>201808122130291_dropPriceFromService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808122229260_AddDefaultUserAccounts.resx">
+      <DependentUpon>201808122229260_AddDefaultUserAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808122337507_DropCustomerTable.resx">
+      <DependentUpon>201808122337507_DropCustomerTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

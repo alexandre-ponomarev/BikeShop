@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <td>Price:</td>
-        <td>@Model.Price.ToString("c")</td>
+        <td>@(Model.Price.HasValue ? Model.Price.Value.ToString("c") : string.Empty)</td>
 
     </tr>
 

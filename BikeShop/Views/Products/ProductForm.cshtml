@@ -7,34 +7,30 @@
 }
 
 <h2>@Model.Option Product</h2>
+
+<br />
+
 @using (Html.BeginForm("Save", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.ValidationSummary(true, "Please correct the following errors:");
-    <!--@Html.ValidationSummary()-->
+    @Html.ValidationSummary(true, "Please correct the following errors:", new { @class = "text-danger" });
+
     <div class="form-group">
         @Html.LabelFor(p => p.Product.ProductName)
         @Html.TextBoxFor(p => p.Product.ProductName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(p => p.Product.ProductName)
+        @Html.ValidationMessageFor(p => p.Product.ProductName, "", new { @class = "text-danger" })
     </div>
 
 
     <div class="form-group">
         @Html.LabelFor(p => p.Product.Stock)
         @Html.TextBoxFor(p => p.Product.Stock, new { @class = "form-control" })
-        @Html.ValidationMessageFor(p => p.Product.Stock)
+        @Html.ValidationMessageFor(p => p.Product.Stock, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(p => p.Product.Price)
         @Html.TextBoxFor(p => p.Product.Price, new { @class = "form-control" })
-        @Html.ValidationMessageFor(p => p.Product.Price)
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(p => p.Product.DateCreation)
-        @Html.TextBoxFor(p => p.Product.DateCreation, "{0:d MMM yyyy}", new { @class = "form-control" })
-        @Html.ValidationMessageFor(p => p.Product.DateCreation)
+        @Html.ValidationMessageFor(p => p.Product.Price, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
@@ -42,23 +38,25 @@
         @Html.DropDownListFor(p => p.Product.CategoryID,
        new SelectList(Model.Categories,"CategoryID","CategoryName"),
        "Select Category",new { @class = "form-control" })
-        @Html.ValidationMessageFor(p => p.Product.CategoryID)
+        @Html.ValidationMessageFor(p => p.Product.CategoryID, "", new { @class = "text-danger" })
     </div>
 
-    <input name="ImageFile" type="file" />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Product.Image)
+        @Html.TextBoxFor(p => p.Product.File, new { @class = "form-control", type = "file" })
+        @Html.ValidationMessageFor(p => p.Product.File, "", new { @class = "text-danger" })
+    </div>
 
     <br />
 
     @Html.HiddenFor(p => p.Product.ProductID)
     @Html.AntiForgeryToken()
 
-    <br />
-
     <button type="submit" class="btn btn-primary">Save</button>
 
 }
-@section scripts
+@*@section scripts
 {
     @Scripts.Render("~/bundles/jqueryval");
 
-}
+}*@

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BikeShop.Models;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BikeShop.Controllers
 {
@@ -156,6 +157,20 @@ namespace BikeShop.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    /*
+
+                    //Temp@123
+                    //Create a role to make the next registered user an admin
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                    //What the needed role
+                    await roleManager.CreateAsync(new IdentityRole("Admin"));
+
+                    await UserManager.AddToRoleAsync(user.Id, "Admin");
+
+                    */
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

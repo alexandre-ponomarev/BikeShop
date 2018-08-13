@@ -1,0 +1,38 @@
+﻿
+@model BikeShop.ViewModels.BookServiceViewModel
+
+@{
+    ViewBag.Title = "Confirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Service booking confirmed!</h2>
+
+<br />
+
+
+<div class="form-group">
+    @Html.LabelFor(sr => sr.ServiceRequest.Name): <br />
+    @Html.DisplayFor(sr => sr.ServiceRequest.Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(sr => sr.ServiceRequest.Name)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(sr => sr.ServiceRequest.Email): <br />
+    @Html.DisplayFor(sr => sr.ServiceRequest.Email, new { @class = "form-control" })
+</div>
+
+
+<div class="form-group">
+    @Html.LabelFor(sr => sr.ServiceRequest.AppointmentDate): <br />
+    @Html.DisplayFor(sr => sr.ServiceRequest.AppointmentDate, new { @class = "form-control", type = "datetime-local" })
+</div>
+
+<p><b>Service selected: </b></p>
+
+<div class="form-group">
+    <u>Title:</u> @Html.DisplayFor(s => s.Service.ServiceName)
+    <br>
+    <u>Description:</u> @Html.DisplayFor(s => s.Service.ServiceDetail)
+
+</div>

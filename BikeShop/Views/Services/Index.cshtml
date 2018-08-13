@@ -1,6 +1,8 @@
 ﻿
 @model IEnumerable<BikeShop.Models.Service>
 
+@using BikeShop.Models
+
 @{
     ViewBag.Title = "Services";
 }
@@ -12,14 +14,19 @@
 @if (!Model.Any())
 {
     <p>The database is Empty. You should create a new service</p>
-    <p>@Html.ActionLink("Add new Service", "New", "Services", null, new { @class = "btn btn-default btn-block" })</p>
+    if (User.IsInRole(RoleNames.Admin))
+    {
+        <p>@Html.ActionLink("Add new Service", "New", "Services", null, new { @class = "btn btn-default btn-block" })</p>
+    }
 }
 else
 {
-    <p>@Html.ActionLink("Add new Service", "New", "Services", null, new { @class = "btn btn-default btn-block" })</p>
+    if (User.IsInRole(RoleNames.Admin))
+    {
+        <p>@Html.ActionLink("Add new Service", "New", "Services", null, new { @class = "btn btn-default btn-block" })</p>
 
-    <br>
-
+        <br>
+    }
     using (Html.BeginForm("Index", "Services", FormMethod.Get))
     {
         <p style="text-align: right">
@@ -49,19 +56,25 @@ else
                 imgSrc = String.Format("data:image/gif;base64,{0}", base64);
             }
 
-        <div class="thumb">
-            <a href="@Url.Action("Details", "Services", new { id = service.ServiceID })"><img src="@imgSrc" /></a><br>
-            <span class="title">@service.ServiceName</span><br>
-            @service.Price.ToString("c")<br>
-            @Html.ActionLink("Edit", "Edit", "Services", new { id = service.ServiceID }, null) | @Html.ActionLink("Delete", "Delete", "Services", new { id = service.ServiceID }, null)
+            <div class="thumb">
+                <a href="@Url.Action("Details", "Services", new { id = service.ServiceID })"><img src="@imgSrc" /></a><br>
+                <span class="title">@service.ServiceName</span><br>
+                @Html.ActionLink("Book Now", "BookService", "Services", new { id = service.ServiceID }, null)
 
-            @*<td>
-            @Html.ActionLink("Details", "Details", "Services", new { id = service.ServiceID }, null) |
-            @Html.ActionLink("Edit", "Edit", "Services", new { id = service.ServiceID }, null) |
-            @Html.ActionLink("Delete", "Delete", "Services", new { id = service.ServiceID }, null)
-        </td>*@
+                @if (User.IsInRole(RoleNames.Admin))
+                {
+                    <span>|</span>
+                    @Html.ActionLink("Edit", "Edit", "Services", new { id = service.ServiceID }, null)
+                    <span>|</span>
+                    @Html.ActionLink("Delete", "Delete", "Services", new { id = service.ServiceID }, null)
+                }
+                @*<td>
+                        @Html.ActionLink("Details", "Details", "Services", new { id = service.ServiceID }, null) |
+                        @Html.ActionLink("Edit", "Edit", "Services", new { id = service.ServiceID }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Services", new { id = service.ServiceID }, null)
+                    </td>*@
 
-        </div>
+            </div>
         }
 
     </div>
